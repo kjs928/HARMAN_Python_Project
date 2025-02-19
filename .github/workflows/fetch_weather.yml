@@ -1,43 +1,40 @@
-name: Fetch Weather Seoul Data # 서울 날씨 정보 수집
+name: Fetch Seoul Weather Data
 
-on: # 작업을 수행하는 조건
-  schedule: # 스케줄링
-    - cron: "*/1 * * * *"
-  workflow_dispatch: # 수동으로 동작가능!!
-  push: # repository에 push가 일어난다면!!
-    branches: 
-      - main # main에 push가 일어나면!!
-jobs: # 실행할 작업을 정의
-  fetch_weather: # 작업 이름
-    runs-on: ubuntu-lastes # 우분투 최신버전!!
+on:
+  schedule:
+    - cron: "*/1 * * * *"  # 1분마다 실행
+  workflow_dispatch:  # 수동 실행 가능
+  push:
+    branches:
+      - main
 
-    steps: # 실행 동작 단계
+jobs:
+  fetch_weather:
+    runs-on: ubuntu-latest
+
+    steps:
       - name: 저장소 체크아웃
-        uses: actions/checkout@v3 # 현재 gihhub 저장소를 clone
+        uses: actions/checkout@v3
         with:
-          token: ${{secrets.GITHUB_TOKEN}} # 내 github 권한 쓰겠다!!
+          token: ${{ secrets.GITHUB_TOKEN }}  # 푸시 권한 추가
+
       - name: Python 설정
-        uses: actions/setup-python@v4 # python 설치 플러그인 동작!!
-        with: 
+        uses: actions/setup-python@v4
+        with:
           python-version: "3.9"
+
       - name: 필요한 패키지 설치
-        run: pip install requests # API 요청 위한 라이브러리 설치
+        run: pip install requests
+
       - name: 날씨 데이터 가져오기
-        env: #GITHUB secrets에서 환경 변수 가져오기
-          OPENWEATHER_API_KEY: ${{secrets.OPENWEATHER_API_KEY}}
-        run: python weather_script.py # 파이썬 스크립트를 실행해라!!
+        env:
+          OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
+        run: python weather_script.py
+
       - name: 변경 사항 커밋 및 푸시
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions@github.com"
-          git add seoul_weather.csv # 날씨 데이터 저장 csv를 github에 추가
-          git commit -m "Update weather data (auto)" # 변경 사항이 있을 경우 
-          git push # 변경사항을 git에 push
-
-
-
-
-
-
-        
-        
+          git add seoul_weather.csv
+          git commit -m "Update weather data (auto)"
+          git push

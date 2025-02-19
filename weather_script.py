@@ -15,12 +15,9 @@ URL = f"http://api.openweathermap.org/data/2.5/weather?q={CITY}&appid={API_KEY}&
 
 response = requests.get(URL)
 data = response.json()
-# print(data)
-
 temp = data["main"]["temp"]
 humidity = data["main"]["humidity"]
 description = data["weather"][0]["description"]
-timezone = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 print(temp, humidity, description, timezone)
 
 # 위의 4개의 데이터를 가지는 csv 파일 생성

@@ -8,7 +8,7 @@ import os
 
 
 #openweatherAPI KEY
-API_KEY= os.getenv("OPENWEATHER_API_KEY")
+API_KEY= "b845d942af0114dc151815a66c6988bb"
 CITY="Seoul"
 URL = f"http://api.openweathermap.org/data/2.5/weather?q={CITY}&appid={API_KEY}&units=metric"
 

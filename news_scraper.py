@@ -64,7 +64,7 @@ df = pd.DataFrame(all_results, columns=columns)
 
 # ✅ CSV 파일로 저장
 # ✅ CSV 파일이 이미 존재하는지 확인 후 저장 방식 결정
-if os.path.exists(csv_filename):
+if os.path.exists(news_results.csv):
     df.to_csv(csv_filename, mode='a', index=False, header=False, encoding='utf-8-sig')  # 기존 파일에 추가 (header 제외)
 else:
     df.to_csv(csv_filename, mode='w', index=False, encoding='utf-8-sig')  # 새 파일 생성 (header 포함)

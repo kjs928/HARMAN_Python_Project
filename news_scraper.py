@@ -63,7 +63,11 @@ columns = ['검색 키워드', '제목', '원본 링크', '네이버 뉴스 링�
 df = pd.DataFrame(all_results, columns=columns)
 
 # ✅ CSV 파일로 저장
-csv_filename = "news_results.csv"
-df.to_csv(csv_filename, index=False, encoding='utf-8-sig')
+# ✅ CSV 파일이 이미 존재하는지 확인 후 저장 방식 결정
+if os.path.exists(csv_filename):
+    df.to_csv(csv_filename, mode='a', index=False, header=False, encoding='utf-8-sig')  # 기존 파일에 추가 (header 제외)
+else:
+    df.to_csv(csv_filename, mode='w', index=False, encoding='utf-8-sig')  # 새 파일 생성 (header 포함)
+
 
 print(f"\n📂 검색 결과가 '{csv_filename}' 파일로 저장되었습니다.")

@@ -104,7 +104,7 @@ print(f"\n📂 검색 결과가 '{csv_filename}' 파일로 저장되었습니다
 def send_email():
     try:
         # ✅ 이메일 제목 & 본문 내용 설정
-        subject = "[자동화 알림] 키워드 관련 뉴스 저장 완료"
+        subject = "[자동화 알림] 뉴스 저장 완료"
         body = f"""
         키워드로 설정하신 [{', '.join(keywords)}]에 대한 기사가 자동화로 저장되었습니다.
 

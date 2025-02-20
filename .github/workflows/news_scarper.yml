@@ -2,7 +2,7 @@ name: Fetch Naver News Data
 
 on:
   schedule:
-    - cron: "0 7 * * *" 
+    - cron: "0 0 * * *"  # 매일 한국 시간 기준 09:00 (UTC 00:00)
   workflow_dispatch:  # 수동 실행 가능
   push:
     branches:

@@ -21,8 +21,6 @@ NAVER_EMAIL = os.getenv("NAVER_EMAIL")
 NAVER_PASSWORD = os.getenv("NAVER_PASSWORD")
 TO_EMAIL = os.getenv("TO_EMAIL")
 
-# ✅ 수신자 이메일 주소
-TO_EMAIL = "receiver@example.com"  # ⬅️ 받을 이메일 주소 입력
 
 # ✅ 검색할 키워드 목록
 keywords = ["반도체", "삼성전자", "sk하이닉스"]

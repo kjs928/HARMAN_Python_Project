@@ -3,11 +3,25 @@ import urllib.parse
 import json
 import pandas as pd
 import os
+import smtplib
 from datetime import datetime
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 # ✅ GitHub Actions에서 환경 변수 가져오기
 client_id = os.getenv("NAVER_CLIENT_ID")
 client_secret = os.getenv("NAVER_CLIENT_SECRET")
+
+# ✅ 네이버 SMTP 서버 정보
+SMTP_SERVER = "smtp.naver.com"
+SMTP_PORT = 587  # TLS 포트
+
+# ✅ 네이버 이메일 계정 정보 (보안을 위해 환경 변수 사용 추천)
+NAVER_EMAIL = "your_email@naver.com"  # ⬅️ 네이버 이메일 주소 입력
+NAVER_PASSWORD = "your_app_password"  # ⬅️ 네이버 앱 비밀번호 입력
+
+# ✅ 수신자 이메일 주소
+TO_EMAIL = "receiver@example.com"  # ⬅️ 받을 이메일 주소 입력
 
 # ✅ 검색할 키워드 목록
 keywords = ["반도체", "삼성전자", "sk하이닉스"]
@@ -86,3 +100,40 @@ else:
     df.to_csv(csv_filename, mode='w', index=False, encoding='utf-8-sig')
 
 print(f"\n📂 검색 결과가 '{csv_filename}' 파일로 저장되었습니다.")
+
+# ✅ 이메일 전송 함수
+def send_email():
+    try:
+        # ✅ 이메일 제목 & 본문 내용 설정
+        subject = "[자동화 알림] 네이버 뉴스 저장 완료"
+        body = f"""
+        안녕하세요,
+
+        키워드로 설정하신 [{', '.join(keywords)}]에 대한 기사가 자동화로 저장되었습니다.
+
+        자세한 내용은 저장된 CSV 파일을 확인해주세요.
+
+        감사합니다.
+        """
+
+        # ✅ 이메일 메시지 생성
+        msg = MIMEMultipart()
+        msg["From"] = NAVER_EMAIL
+        msg["To"] = TO_EMAIL
+        msg["Subject"] = subject
+        msg.attach(MIMEText(body, "plain"))
+
+        # ✅ 네이버 SMTP 서버에 연결하여 이메일 전송
+        server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
+        server.starttls()  # TLS 보안 연결 활성화
+        server.login(NAVER_EMAIL, NAVER_PASSWORD)  # 네이버 이메일 계정 로그인
+        server.sendmail(NAVER_EMAIL, TO_EMAIL, msg.as_string())  # 이메일 전송
+        server.quit()
+
+        print("✅ 이메일이 성공적으로 전송되었습니다!")
+
+    except Exception as e:
+        print(f"❌ 이메일 전송 실패: {e}")
+
+# ✅ CSV 저장 후 이메일 전송 실행
+send_email()

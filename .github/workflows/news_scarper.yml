@@ -2,7 +2,7 @@ name: Fetch Naver News Data
 
 on:
   schedule:
-    - cron: "*/10 * * * *"  
+    - cron: "0 7 * * *" 
   workflow_dispatch:  # 수동 실행 가능
   push:
     branches:
@@ -26,7 +26,7 @@ jobs:
       - name: 필요한 패키지 설치
         run: pip install pandas requests urllib3
 
-      - name: 네이버 뉴스 데이터 가져오기
+      - name: 네이버 뉴스 데이터 가져오고 완료 시 메일보내기
         env:
           NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
           NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}

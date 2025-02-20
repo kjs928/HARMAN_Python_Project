@@ -10,7 +10,7 @@ client_id = os.getenv("NAVER_CLIENT_ID")
 client_secret = os.getenv("NAVER_CLIENT_SECRET")
 
 # ✅ 검색할 키워드 목록
-keywords = ["반도체", "스마트폰"]
+keywords = ["반도체", "삼성전자", "sk하이닉스"]
 
 # ✅ 가져올 검색 결과 개수 설정 (최대 100개)
 result_count = 5

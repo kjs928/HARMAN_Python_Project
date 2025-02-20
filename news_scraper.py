@@ -17,8 +17,9 @@ SMTP_SERVER = "smtp.naver.com"
 SMTP_PORT = 587  # TLS 포트
 
 # ✅ 네이버 이메일 계정 정보 (보안을 위해 환경 변수 사용 추천)
-NAVER_EMAIL = "your_email@naver.com"  # ⬅️ 네이버 이메일 주소 입력
-NAVER_PASSWORD = "your_app_password"  # ⬅️ 네이버 앱 비밀번호 입력
+NAVER_EMAIL = os.getenv("NAVER_EMAIL")
+NAVER_PASSWORD = os.getenv("NAVER_PASSWORD")
+TO_EMAIL = os.getenv("TO_EMAIL")
 
 # ✅ 수신자 이메일 주소
 TO_EMAIL = "receiver@example.com"  # ⬅️ 받을 이메일 주소 입력

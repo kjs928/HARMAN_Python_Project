@@ -62,9 +62,11 @@ for keyword in keywords:
 columns = ['검색 키워드', '제목', '원본 링크', '네이버 뉴스 링크', '요약', '게시 날짜']
 df = pd.DataFrame(all_results, columns=columns)
 
-# ✅ CSV 파일로 저장
-# ✅ CSV 파일이 이미 존재하는지 확인 후 저장 방식 결정
-if os.path.exists(news_results.csv):
+# ✅ CSV 파일 경로 설정
+csv_filename = "news_results.csv"
+
+# ✅ CSV 파일이 존재하는지 확인 후 저장 방식 결정
+if os.path.exists(csv_filename):
     df.to_csv(csv_filename, mode='a', index=False, header=False, encoding='utf-8-sig')  # 기존 파일에 추가 (header 제외)
 else:
     df.to_csv(csv_filename, mode='w', index=False, encoding='utf-8-sig')  # 새 파일 생성 (header 포함)
